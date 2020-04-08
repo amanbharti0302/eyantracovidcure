@@ -1,0 +1,29 @@
+{
+  "name": "e-yantra_hackathon-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^3.2.0",
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "ico": "^0.3.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7",
+    "nodemon": "^2.0.2",
+    "request": "^2.88.2",
+    "unirest": "^0.6.0",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "compile": "node-sass sass/main.scss public/css/styles.css -w"
+  },
+  "author": "",
+  "license": "ISC"
+}

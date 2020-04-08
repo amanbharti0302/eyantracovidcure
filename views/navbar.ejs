@@ -1,0 +1,78 @@
+<%- include('partials/header') -%>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+   <a class="navbar-brand" href="/cover"><img class="navbar-img" src="images/covidcare-logo.png" alt="Covidcare"></a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+         <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="/livestat">Live Updates</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="/hospitals">Hospitals</a>
+         </li>
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               MyGov Social Hub
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+               <a target="_blank" class="dropdown-item" href="https://www.messenger.com/t/MyGovIndia">Messenger</a>
+               <a target="_blank" class="dropdown-item" href="https://www.facebook.com/MyGovIndia/">Facebook</a>
+               <a target="_blank" class="dropdown-item" href="https://t.me/MyGovCoronaNewsdesk">Facebook</a>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="/helpline">Helpline</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#popup" id="login">login</a>
+            <a class="nav-link" href="#" id="logout" style="display: none;">logout</a>
+         </li>
+      </ul>
+   </div>
+</nav>
+<div id="progress-bar"></div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<div class="popup" id="popup">
+   <div class="popup__content">
+      <div class="popup__left">
+
+      </div>
+      <div class="popup__right">
+         <form action="/public/login" class="form" method="POST">
+
+            <div class="form__header">
+               <h3 class="form__h3">login here</h3>
+            </div>
+            <div class="form__group">
+               <input type="email" class="form__input" placeholder="email" required id="email" name="email">
+               <label for="name" class="form__label">email id</label>
+            </div>
+            <div class="form__group">
+               <input type="password" class="form__input" placeholder="password" required id="password" name="password">
+               <label for="password" class="form__label">password</label>
+            </div>
+
+            <div class="form__group">
+               <button class="button" style="vertical-align:middle" id="btn-sub"><span>login </span></button>
+            </div>
+            <div class="form__extra">
+               <a href="/signup" id="signup-call" class="form-link-bottom">signup</a>
+               <a href="#" class="form-link-bottom">forgot password</a>
+            </div>
+         </form>
+
+         <a href="#" class="popup__close">&times;</a>
+
+      </div>
+   </div>
+</div>

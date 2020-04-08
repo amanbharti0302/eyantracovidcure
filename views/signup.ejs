@@ -1,0 +1,215 @@
+<%- include('partials/header') -%>
+<script type="text/JavaScript" src='js/state.js'></script>
+<script type="text/JavaScript" src='js/signup.js'></script>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+   <a class="navbar-brand" href="/cover"><img class="navbar-img" src="images/covidcare-logo.png" alt="Covidcare"></a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+         <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="/livestat" id="livestatlink">Live Updates</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#">Map</a>
+         </li>
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               News
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+               <a class="dropdown-item" href="#">Written news</a>
+               <a class="dropdown-item" href="#">Video News</a>
+            </div>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+         </li>
+      </ul>
+   </div>
+</nav>
+
+
+<div class="popup" id="popup" style="display: none;">
+   <div class="popup__content">
+      <div class="popup__left">
+
+      </div>
+      <div class="popup__right">
+         <form action="/public/login" class="form" method="POST">
+
+            <div class="form__header">
+               <h3 class="form__h3">login here</h3>
+            </div>
+            <div class="form__group">
+               <input type="email" class="form__input" placeholder="email" required id="email" name="email">
+               <label for="name" class="form__label">email id</label>
+            </div>
+            <div class="form__group">
+               <input type="password" class="form__input" placeholder="password" required id="password" name="password">
+               <label for="password" class="form__label">password</label>
+            </div>
+
+            <div class="form__group">
+               <button class="button" style="vertical-align:middle" id="btn-sub"><span>login </span></button>
+               <div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 5px;margin-top: 2px;">sign</div>
+            </div>
+            <div class="form__extra">
+               <a href="/signup" id="signup-call">signup</a>
+               <a href="#">forgot password</a>
+            </div>
+         </form>
+
+         <a href="#" class="popup__close">&times;</a>
+
+      </div>
+   </div>
+</div>
+
+
+
+
+<div id="progress-bar"></div>
+<script src="js/scrollbar.js"></script>
+<script type="text/javascript">
+   $(document).ready(function () {
+      $("#progress-bar").onscroll();
+   });
+</script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+<div class='wrapper container-xl' style="padding-top:7rem;">
+   <!--change here padding-top-->
+
+   <div class="signup-page signup-page-default">
+      <div class="header-main">
+         <a class="header-logo" href="#"><img src="images/covidcare.png" alt=""></a>
+
+         <h1 class="h2">Sign up for free and be a part of Covidcare</h1>
+
+         <div class="header-login">
+            <span>Already have an account?&nbsp;</span>
+            <div class="btn-group">
+               <button type="button" class="btn btn-sm btn-info " data-toggle="dropdown" id="signup-login"
+                  aria-haspopup="true" aria-expanded="false">
+                  Log in
+               </button>
+               <!--deletion here-->
+            </div>
+         </div>
+      </div>
+      <div class="signup-content">
+         <div class="benefits page-body">
+            <h2 class="h3"><i class="fas fa-user-shield"></i> Free account</h2>
+            <p>One free account give you access to everything you need around you.</p>
+            <hr />
+
+            <h2 class="h3"><span class="icon hk-icon-sm hk-icon-deploy"></span><i class="fas fa-cogs"></i>
+               Information Hub
+            </h2>
+            <p>Get updated information about everything you need to know about COVID-19.</p>
+
+            <h2 class="h3"><span class="icon hk-icon-sm hk-icon-app"></span><i class="fas fa-universal-access"></i>
+               Accessibility</h2>
+            <p>Order online from shop near you and get your order within the guaranteed delivery time.</p>
+            <hr />
+         </div>
+
+
+         <div class="signup page-sidebar">
+
+            <form class="formDesign" action="" accept-charset="UTF-8" method="post">
+               <input type="hidden" name="slug" value="login" />
+
+               <div class="input-group">
+                  <label for="name">
+                     Name
+                     <sup title="Required">*</sup>
+                  </label> <input type="text" name="name" id="signup-name" class="required" autocapitalize="off"
+                     autofocus="autofocus" placeholder="Name" required autofocus />
+               </div>
+
+               <div class="input-group">
+                  <label for="email">
+                     Email address
+                     <sup title="Required">*</sup>
+                  </label> <input type="email" name="email" id="signup-email" class="required" autocapitalize="off"
+                     placeholder="Email address" required />
+               </div>
+
+               <div class="input-group">
+                  <label for="mobile">
+                     Mobile No. (do not include "+91")
+                     <sup title="Required">*</sup>
+                  </label> <input type="number" name="mobile" id="signup-mobile" class="mobile" autocapitalize="off"
+                     placeholder="Mobile Number" required />
+               </div>
+
+               <div style="font-size: 13px;" class="input-group">
+                  Select State: <select id="listBox" onchange='selct_district(this.value)'></select>
+                  Select District: <select id='secondlist'></select>
+               </div>
+
+               <div class="input-group">
+                  <label for="address-line1">
+                     address-line1
+                     <sup title="Required">*</sup>
+                  </label> <input type="text" name="address-line1" id="address-line1" class="required"
+                     autocapitalize="off" autofocus="autofocus" placeholder="address-line1" required />
+                  <p style="font-size: 11px;" class="help-block">Street address, P.O. box, company name, c/o</p>
+               </div>
+
+               <div class="input-group">
+                  <label for="address-line2">
+                     address-line2
+                     <sup title="Required">*</sup>
+                  </label> <input type="text" name="address-line2" id="address-line2" class="required"
+                     autocapitalize="off" autofocus="autofocus" placeholder="address-line2" required />
+                  <p style="font-size: 11px;" class="help-block">Apartment, suite , unit, building, floor, etc.</p>
+               </div>
+
+               <div class="input-group">
+                  <label for="password">
+                     Password (minimum length 8)
+                     <sup title="Required">*</sup>
+                  </label> <input type="password" id="signup-password" name="password" autocapitalize="off"
+                     placeholder="create your password" required />
+               </div>
+
+               <div class="input-group">
+                  <label for="password">
+                     Conform Password
+                     <sup title="Required">*</sup>
+                  </label> <input type="password" id="signup-passwordconfirm" name="conformPassword"
+                     autocapitalize="off" placeholder="conform your password" required />
+               </div>
+
+               <div class="input-group">
+                  <input type="submit" id="signup-sub" name="commit" value="Create Free Account"
+                     class="btn buttonn btn-alt full-width btn-primary" data-disable-with="Create Free Account">
+               </div>
+            </form>
+
+         </div>
+      </div>
+   </div>
+
+</div>
+
+
+<script language="javascript">
+   populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+   populateCountries("country2");
+   populateCountries("country2");
+</script>
+
+<%- include('partials/footer') -%>

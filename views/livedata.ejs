@@ -1,0 +1,99 @@
+<%- include('navbar') -%>
+
+<a onclick="scrollToTop()" class="to-top btn btn-lg btn-light">▲</a>
+<div class="container-fluid totaldata-container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="totaldata">
+        <h2>Country</h2><br>
+        <h2>India</h2>
+      </div>
+    </div>
+    <div class=" col-md-4">
+      <div class="totaldata">
+        <h2><%=totalindia_data.confirmed%></h2>
+        <h2>confirmed</h2>
+      </div>
+    </div>
+    <div class=" col-md-4">
+      <div class="totaldata">
+        <h2>last updated time</h2>
+        <h2><%=totalindia_data.lastupdatedtime%></h2>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="chartContainer" class="container" style="height: 370px; width: 100%;" onload="myfunc()"></div>
+
+
+<div class="container infection-trajectory">
+  <iframe src="https://ourworldindata.org/grapher/covid-confirmed-cases-since-100th-case"
+    style="width: 100%; height: 600px; border: 0px none;" class="infection-trajectory-iframe"></iframe>
+</div>
+
+<div class="container country-wise">
+  <iframe src="https://ourworldindata.org/grapher/daily-cases-covid-19?country=IND"
+    style="width: 100%; height: 600px; border: 0px none;" class="country-wise-iframe"></iframe>
+</div>
+
+
+<div class="container section-statewise bg-light">
+  <table class="table table-striped table-hover table-responsive-md">
+    <thead>
+      <tr>
+        <th scope="col">state</th>
+        <th scope="col">confirmed</th>
+        <th scope="col">active</th>
+        <th scope="col">deaths</th>
+        <th scope="col">recovered</th>
+      </tr>
+    </thead>
+
+    <% for(var i=0;i<statewise.length;i++) { %>
+    <tr>
+      <th scope="row"><%=statewise[i].state%></th>
+      <td><%=statewise[i].confirmed%></td>
+      <td><%=statewise[i].active%></td>
+      <td><%=statewise[i].deaths%></td>
+      <td><%=statewise[i].recovered%></td>
+    </tr>
+    <%}%>        
+      </table>
+    
+</div>
+
+
+
+
+<div class="container section-statewise bg-light">
+  <table class="table table-striped table-hover table-responsive-md">
+    <thead>
+      <tr>
+        <th scope="col">country name</th>
+        <th scope="col">confirmed</th>
+        <th scope="col">active</th>
+        <th scope="col">deaths</th>
+        <th scope="col">recovered</th>
+      </tr>
+    </thead>
+
+    <% for(var i=0;i<statewise.length;i++) { %>
+    <tr>
+      <th scope="col"><%=countrywise[i].country_name%></th>
+      <td><%=countrywise[i].cases%></td>
+      <td><%=countrywise[i].active_cases%></td>
+      <td><%=countrywise[i].deaths%></td>
+      <td><%=countrywise[i].total_recovered%></td>
+    </tr>
+    <%}%>        
+      </table>
+    
+</div>
+
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <%- include('partials/footer') -%>
