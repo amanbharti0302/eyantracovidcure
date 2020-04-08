@@ -4,6 +4,16 @@ const worlddata = require('../schema/worlddataSchema');
 const user = require('../schema/userSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+         user: 'amandevsak1106@gmail.com',
+         pass: '########'
+     }
+ });
 
 
 const signToken = id => {
@@ -145,6 +155,8 @@ exports.signup = async (req, res) => {
 	}
 }
 
+
+
 exports.signup_post = async (req, res) => {
 	try {
 		const obj = req.body;
@@ -183,6 +195,77 @@ exports.tokencheck = async (req, res) => {
 		res.send({ stat: 505, message: 'session expired' })
 	}
 }
+
+
+exports.forgotpassword = async(req,res)=>{
+	try{
+		//const email = req.body.email;
+		const email = 'amanbharti0302@gmail.com';
+		const User = await user.findOne({ email: "amanbharti0302@gmail.com" });
+		const resetToken = User.createPasswordResetToken();
+         await User.save({ validateBeforeSave: false });
+		
+		 const resetURL = `${req.protocol}://${req.get('host')}/users/resetPassword/${resetToken}`;
+
+		 // const mailOptions = {
+		// 	from: 'amandevsak1106@gmail.com',
+		// 	to: 'amanbharti0302@gmail.com',
+		// 	subject: 'Subject of your email',
+		// 	html: '<p>Your html here</p>'
+		//   };
+
+		//   console.log(mailOptions);
+
+		//   transporter.sendMail(mailOptions, function (err, info) {
+		// 	if(err)
+		// 	  console.log(err)
+		// 	else
+		// 	  {console.log(info);console.log('hello');}
+		//  });
+		//console.log(resetToken);
+		res.send({message:'website is in development so either contact mob.no 7250720774(aman bharti)<br>or search the givenUrl<br>',resetURL});
+
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+exports.resetpassword = async(req,res)=>{
+	try{
+
+	const hashedToken = crypto
+		.createHash('sha256')
+	    .update(req.params.token)
+		.digest('hex');
+	
+	const User = await user.findOne({passwordResetToken: hashedToken,passwordResetExpires: { $gt: Date.now() }});
+	 res.render('forgotpassword',{User:User,token:req.params.token});
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+exports.changepassword = async(req,res)=>{
+	try{
+		const hashedToken = crypto
+		.createHash('sha256')
+	    .update(req.params.token)
+		.digest('hex');
+		
+		const User = await user.findOne({passwordResetToken: hashedToken,passwordResetExpires: { $gt: Date.now() }});
+		User.password = await bcrypt.hash(req.body.password, 12);
+		User.passwordResetToken = undefined;
+  		User.passwordResetExpires = undefined;
+  		await User.save();
+		res.send('successfully changed password');
+	}
+	catch(err){
+		res.send('err');
+	}
+}
+
 
 exports.protector = async (req, res) => {
 	try {
