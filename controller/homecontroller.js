@@ -188,11 +188,8 @@ exports.protector = async (req, res) => {
 	try {
 		const decoded = (jwt.verify)(req.body.token, process.env.JWT_SECRET);
 		const currentUser = await user.findById(decoded.id);
-
-		if (!currentUser) { console.log('hello'); res.send({ stat: 404 }); }
-		else { res.send({ stat: 200, currentUser: currentUser }); }
-
-
+		if (!currentUser) {console.log('ok'); res.send({stat : '200'}); }
+		else {res.send({stat : '200'}); }
 	}
 	catch (err) {
 		res.send(err);
