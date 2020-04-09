@@ -79,6 +79,40 @@ $(document).ready(function () {
     document.getElementById("logout").style.display = "none";
   })
 
+  $("#forgotpassword").click(function(e){
+    $(".passwordgrpcon").css('display','none');
+    $("#h3login").html("Enter your Email");
+    $("#signup-call").css('display','none');
+    $("#forgotpassword").css('display','none');
+    $("#btn-sub").css('display','none');
+    $("#btn-forgot").css('display','block');
+    e.preventDefault();
+  })
+
+$("#btn-forgot").click(function(e){
+  var email = $("#email").val();
+  if(email == ""){alert("please enter your email"); }
+  else{
+    $.post('/forgotpassword',{email:email},function(data){
+      if(data.stat == 200){
+        alert(data.message);
+        location.replace('/');
+      }
+      else if(data.stat == 404){
+        alert(data.message);
+      }
+      else{
+        alert('Internal sever ERROR');
+        location.replace('/');
+      }
+    })
+  }
+  
+    e.preventDefault();
+  })
+
+
+
 
   $("#signup-sub").click(function (e) {                                 /////////////////changed 7 april 2020
     var name = $("#signup-name").val();

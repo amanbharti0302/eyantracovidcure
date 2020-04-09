@@ -12,7 +12,7 @@ router.post('/tokencheck', homecontroller.tokencheck)
 router.get('/home', homecontroller.getpage);
 router.get('/livestat', homecontroller.getlivestat);
 router.get('/totaldata', homecontroller.gettotal);
-router.get('/forgotpassword',homecontroller.forgotpassword);  //also change in id of forgotpassword of ejs and index.js
+
 
 
 router.post('/signup', homecontroller.signup_post);
@@ -20,6 +20,7 @@ router.get('/signup', homecontroller.signup);
 router.get('/helpline', homecontroller.helpline);
 router.get('/hospitals', homecontroller.hospitals);
 
+router.post('/forgotpassword',homecontroller.forgotpassword);  //also change in id of forgotpassword of ejs and index.js
 router.get('/users/resetPassword/:token',homecontroller.resetpassword);
 router.post('/users/resetPassword/:token',homecontroller.changepassword);
 

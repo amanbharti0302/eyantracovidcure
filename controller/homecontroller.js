@@ -11,8 +11,8 @@ const buyproduct = require('../schema/productSchema');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-         user: 'amandevsak1106@gmail.com',
-         pass: '########'
+         user: process.env.email,
+         pass: process.env.password
      }
  });
 
@@ -200,32 +200,28 @@ exports.tokencheck = async (req, res) => {
 
 exports.forgotpassword = async(req,res)=>{
 	try{
-		//const email = req.body.email;
-		const email = 'amanbharti0302@gmail.com';
-		const User = await user.findOne({ email: "amanbharti0302@gmail.com" });
-		const resetToken = User.createPasswordResetToken();
+		const email = req.body.email;
+		const User = await user.findOne({ email: email });
+
+		if(!User){
+			res.send({stat:'404',message:'please enter correct email'});
+		}
+		else{
+		 const resetToken = User.createPasswordResetToken();
          await User.save({ validateBeforeSave: false });
-		
 		 const resetURL = `${req.protocol}://${req.get('host')}/users/resetPassword/${resetToken}`;
-
-		 // const mailOptions = {
-		// 	from: 'amandevsak1106@gmail.com',
-		// 	to: 'amanbharti0302@gmail.com',
-		// 	subject: 'Subject of your email',
-		// 	html: '<p>Your html here</p>'
-		//   };
-
-		//   console.log(mailOptions);
-
-		//   transporter.sendMail(mailOptions, function (err, info) {
-		// 	if(err)
-		// 	  console.log(err)
-		// 	else
-		// 	  {console.log(info);console.log('hello');}
-		//  });
-		//console.log(resetToken);
-		res.send({message:'website is in development so either contact mob.no 7250720774(aman bharti)<br>or search the givenUrl<br>',resetURL});
-
+		 const mailOptions = {
+			from: process.env.email,
+			to: User.email,
+			subject: 'Covidcare.com password change request',
+			html: `<a href="${resetURL}" >${resetURL}</a>`
+		  };
+		  transporter.sendMail(mailOptions, function (err, info) {
+			if(err)
+			  res.send({stat:"404",message:"Currentl unable to change password"});
+		 });
+		res.send({stat:'200',message:'please check your email to change password'});
+	   }
 	}
 	catch(err){
 		res.send(err);

@@ -156,7 +156,7 @@ h1 {
 h2,
 p,
 li {
-  font-family: 'Kalam', cursive;
+  /*font-family: 'Kalam', cursive;*/
   font-size: 1.25rem;
   color: #474040;
 }

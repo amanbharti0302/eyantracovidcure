@@ -61,19 +61,22 @@
          <form action="/public/login" class="form" method="POST">
 
             <div class="form__header">
-               <h3 class="form__h3">login here</h3>
+               <h3 class="form__h3" id="h3login">login here</h3>
             </div>
             <div class="form__group">
                <input type="email" class="form__input" placeholder="email" required id="email" name="email">
                <label for="name" class="form__label">email id</label>
             </div>
-            <div class="form__group">
+            <div class="form__group passwordgrpcon">
                <input type="password" class="form__input" placeholder="password" required id="password" name="password">
                <label for="password" class="form__label">password</label>
             </div>
 
             <div class="form__group">
-               <button class="button" style="vertical-align:middle" id="btn-sub"><span>login </span></button>
+               <button class="button" style="vertical-align:middle;" id="btn-sub"><span>login </span></button>
+            </div>
+            <div class="form__group">
+               <button class="button" style="vertical-align:middle;display: none;" id="btn-forgot"><span>submit </span></button>
             </div>
             <div class="form__extra">
                <a href="/signup" id="signup-call" class="form-link-bottom">signup</a>
