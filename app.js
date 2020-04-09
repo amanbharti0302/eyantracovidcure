@@ -21,6 +21,8 @@ app.use(express.static("public"));
 app.use('/',homerouter);    //from here home router in router will control all routes
 app.use('/public/',protectedrouter);
 
+
+
 app.all('*', (req, res, next) => {
   res.send('<html><head><title>500 Internal Server Error</title></head><body bgcolor="white"><center><h1>500 Internal Server Error</h1></center><hr><center>covid19pr.com <br>website in development mode plase contact :7250720774 (aman bharti)</center></body></html>');
 });

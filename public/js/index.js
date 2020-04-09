@@ -1,12 +1,8 @@
 $(document).ready(function () {
-  $("#progress-bar").onscroll();
-  window.onload = function () {
-
-    ////////////////////////////////////////////////checks whether it is loged in or not
-    var token = localStorage.getItem("token");
+  var token = localStorage.getItem("token");
     if (token != null) {
       $.post('/tokencheck', { token: token }, function (data) {
-        if (data == 404) { alert('session expired'); localStorage.removeItem("token"); }
+        if (data == 404) { alert('session expired'); localStorage.removeItem("token");location.replace('/'); }
         else if (data.stat == 200) {
           //alert(data.currentuser.email);
           document.getElementById("popup").style.display = "none";
@@ -23,6 +19,8 @@ $(document).ready(function () {
       document.getElementById("logout").style.display = "none";
     }
 
+  $("#progress-bar").onscroll();
+  window.onload = function () {    
     ////////////////////////////////////////////////for piechart in livedata
     $.get("/totaldata", function (data, status) {
       var options = {
@@ -143,6 +141,24 @@ $(document).ready(function () {
     e.preventDefault();
   })
 
+
+  $("#buy").click(function(e){
+    const token = localStorage.getItem("token");
+    if(!token){location.replace('#popup');}
+    else{
+      $.get(`/buyer/${token}`,{token:token},function(data){
+        if(data == 'true'){
+          location.replace('/buyertab');
+        }
+        else{
+          alert('session timed out');
+          location.replace('/#popup');
+        }
+      })
+    }
+    e.preventDefault();
+  })
+
 })
 
 $.fn.onscroll = function (options) {
@@ -179,6 +195,4 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-
 }

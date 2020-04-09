@@ -23,4 +23,9 @@ router.get('/hospitals', homecontroller.hospitals);
 router.get('/users/resetPassword/:token',homecontroller.resetpassword);
 router.post('/users/resetPassword/:token',homecontroller.changepassword);
 
+router.get('/buyer/:token',homecontroller.buy);
+router.get('/buyertab',homecontroller.buyertab);
+router.post('/getinfo',homecontroller.getinfo);
+router.post('/itemform',homecontroller.Itemform);  //user submit their requiremeint form here
+
 module.exports = router;

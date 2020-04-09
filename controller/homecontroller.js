@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 var nodemailer = require('nodemailer');
+const buyproduct = require('../schema/productSchema');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -275,6 +276,64 @@ exports.protector = async (req, res) => {
 		else {res.send({stat : '200'}); }
 	}
 	catch (err) {
+		res.send(err);
+	}
+}
+
+exports.buy = async(req,res)=>{
+	try{
+		//console.log(req.body);
+		const decoded = (jwt.verify)(req.params.token, process.env.JWT_SECRET);
+		const currentUser =await user.findById(decoded.id);
+		if(!currentUser){
+			res.send('false');
+		}
+		else{
+			res.send('true');
+		}
+	}
+	catch(err){
+		console.log(err);
+		res.send(err);
+	}
+}
+
+exports.buyertab = async(req,res)=>{
+	try{
+		res.render('buyer');
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+exports.getinfo = async(req,res)=>{
+	try{
+		const token = req.body.token;
+		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
+		const currentUser =await user.findById(decoded.id);
+		if(!currentUser){
+			res.send({stat: '404'});
+		}
+		else{
+			res.send({stat: '200',currentUser:currentUser});
+		}
+
+	}
+	catch(err){
+		console.log(err)
+		res.send(err);
+	}
+}
+
+
+exports.Itemform = async(req,res)=>{
+	try{
+		const obj = req.body;
+	    const newbuyproduct = await buyproduct.create(obj);
+		res.redirect('/');
+	}
+	catch(err){
 		res.send(err);
 	}
 }
