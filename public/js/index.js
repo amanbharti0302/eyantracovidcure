@@ -1,5 +1,8 @@
 $(document).ready(function () {
-  var token = localStorage.getItem("token");
+ 
+  $("#progress-bar").onscroll();
+  window.onload = function () {    
+    var token = localStorage.getItem("token");
     if (token != null) {
       $.post('/tokencheck', { token: token }, function (data) {
         if (data == 404) { alert('session expired'); localStorage.removeItem("token");location.replace('/'); }
@@ -18,9 +21,6 @@ $(document).ready(function () {
       document.getElementById("login").style.display = "block";
       document.getElementById("logout").style.display = "none";
     }
-
-  $("#progress-bar").onscroll();
-  window.onload = function () {    
     ////////////////////////////////////////////////for piechart in livedata
     $.get("/totaldata", function (data, status) {
       var options = {
@@ -132,18 +132,15 @@ $("#btn-forgot").click(function(e){
 
     else {
       $.post("/signup", { name: name, email: email, mobile: mobile, state: state, district: district, address1: address1, address2: address2, password: password, passwordconfirm: passwordconfirm }, function (data) {
-
-        if (data.stat == -1) { alert(data.message.errmsg); }
+        $("#signup-sub").attr("disabled", true);
+        if (data.stat == 500) { alert(data.message.errmsg);$("#signup-sub").attr("disabled", false); }
         else {
           $("#signup-sub").attr("disabled", true);
-          const token2 = data.token;
-          localStorage.setItem("token", token2);
-
+          alert(data.message);
           location.replace('/');
         }
       });
     }
-
     e.preventDefault();
   })
 

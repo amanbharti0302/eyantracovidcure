@@ -162,24 +162,54 @@ exports.signup_post = async (req, res) => {
 	try {
 		const obj = req.body;
 		obj.password = await bcrypt.hash(obj.password, 12);
-
 		const new_user = await user.create(obj);
 
-		const token = signToken(new_user._id);
-
-		res.send({
-			status: "success",
-			email: new_user.email,
-			token: token
+		const resetToken = new_user.createPasswordResetToken();
+		await new_user.save({ validateBeforeSave: false });
+		const resetURL = `${req.protocol}://${req.get('host')}/users/verifyemail/${resetToken}`;
+		const mailOptions = {
+		   from: process.env.email,
+		   to: new_user.email,
+		   subject: 'Covidcare.com Email verification',
+		   html: `<a href="${resetURL}" >${resetURL}</a>`
+		 };
+		 transporter.sendMail(mailOptions, function (err, info) {
+		   if(err)
+			 res.send({stat:"404",message:"Currentl unable to signup"});
 		});
+
+   	    res.send({stat:'200',message:'please check your email to verify email'});
 	}
 	catch (err) {
 		res.send({
 			status: "fail",
 			message: err,
-			stat: -1
+			stat: 500
 		});
 	}
+}
+
+exports.verifyemail = async(req,res)=>{
+	try{
+		const hashedToken = crypto
+		.createHash('sha256')
+	    .update(req.params.token)
+		.digest('hex');
+		const User = await user.findOne({passwordResetToken: hashedToken});
+
+		if(!User){
+			res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email not veified</h1></center><hr><center>covid19pr.com</center></body></html>');
+		}
+		else{
+			User.status = "registered";
+			User.passwordResetToken = undefined;
+			User.passwordResetExpires = undefined;
+			await User.save();			  
+			res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email veified</h1></center><hr><center>covid19pr.com</center></body></html>');
+		}
+	}
+	catch(err){
+		res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email not veified</h1></center><hr><center>covid19pr.com</center></body></html>');	}
 }
 
 exports.tokencheck = async (req, res) => {
@@ -205,6 +235,10 @@ exports.forgotpassword = async(req,res)=>{
 
 		if(!User){
 			res.send({stat:'404',message:'please enter correct email'});
+		}
+		else if(User.status == "not registered")
+		{
+			res.send({stat:'404',message:'you have not verified your email.'});
 		}
 		else{
 		 const resetToken = User.createPasswordResetToken();

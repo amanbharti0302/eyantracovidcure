@@ -17,6 +17,7 @@ router.get('/totaldata', homecontroller.gettotal);
 
 router.post('/signup', homecontroller.signup_post);
 router.get('/signup', homecontroller.signup);
+router.get('/users/verifyemail/:token',homecontroller.verifyemail);
 router.get('/helpline', homecontroller.helpline);
 router.get('/hospitals', homecontroller.hospitals);
 
