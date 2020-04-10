@@ -37,6 +37,8 @@ For Setup:-
 			DATABASE_PASWORD= <password>
 			JWT_SECRET= Your_Secret
 			JWT_EXPIRES_IN = 90d
+			email = "your email with access of less secure apps"
+			password = "your email password with havin a capital case ,symbols,and at least one digit"
 		(*here password referes to your mongoDB account password.)
 	step 7: Create Google map api key and include it's scrypt src in config.env with name 'map_key'.
 		(ie- map_key: https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places)
