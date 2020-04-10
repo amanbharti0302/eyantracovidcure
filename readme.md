@@ -1,3 +1,5 @@
+	COVIDCARE WEBSITE : https://github.com/amanbharti0302/eyantracovidcure
+
 Covidcare project includes the following feature:-
 	1- The person who requires commodities can list them and upload it to the website which will be
 	 visible to all the shopkeepers nearby. Once the shopkeeper is assured of the availibility of
@@ -41,6 +43,3 @@ For Setup:-
 	
 Gotcha, setup completed. run 'localhost:3000/' in browser and get benifits of our precious website.
 	
-
-	we have hosted our website on heroku also
-	HEROKU LINK :https://github.com/amanbharti0302/eyantracovidcure
