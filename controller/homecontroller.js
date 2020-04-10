@@ -387,12 +387,28 @@ exports.getdataofproduct = async(req,res)=>{
 			res.send({stat: '404'});
 		}
 		else{
-			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district});
+			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district,status:'un booked'});
 			res.send({stat: '200',allproduct:allproduct});
 		}
 
 	}
 	catch(err){
 		res.send(err);
+	}
+}
+
+exports.bookproduct = async(req,res)=>{
+	try{const email = req.body.email;
+		const token = req.body.token;
+		const id = (jwt.verify)(token, process.env.JWT_SECRET).id;
+		const buyer =await buyproduct.findOne({email});
+		buyer.status = "booked";
+		buyer.shopkeeperid = id;
+		await buyer.save();
+		res.send({stat:200,message:'successfully booked'});
+	}
+	catch(err){
+		console.log(err);
+		res.send({stat:500,message:err});
 	}
 }

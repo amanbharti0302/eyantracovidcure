@@ -15,11 +15,12 @@ $(document).ready(function(e){
                                 {li = $(`<li>${el.order_item[i]} - ${el.quantity[i]}</li>`)
                                   ol.append(li);
                                 }
-                                overlay = $('<div class="overlay" >')
-                                overlay.append($(`<h2>${el.name}</h2>`))
-                                overlay.append($(`<p>phone no:- ${el.mobileno}</>`))
-                                overlay.append($(`<p>Email:- ${el.email}</p>`))
-                                overlay.append($(`<p>address: ${el.address}</p>`))
+                                overlay = $(`<div class="overlay" onclick="book('${el.email}')">`)
+                                overlay.append($(`<h2 style="font-size:17px;margin-bottom: 0;">${el.name}</h2>`))
+                                overlay.append($(`<p style="font-size: 17px;margin-bottom: 0;">phone no:- ${el.mobileno}</>`))
+                                overlay.append($(`<p style="font-size: 17px;margin-bottom: 0;">Email:- ${el.email}</p>`))
+                                overlay.append($(`<p style="font-size: 17px;margin-bottom: 0;">address: ${el.address}</p>`))
+                                overlay.append($(`<a style="font-size: 17px;margin: 0px 0px 0px 10px;">click here to book </a>`))
 
                                 html=$('<div class="order_items col-3">')
                                         .append(ol)
@@ -53,3 +54,16 @@ $(document).ready(function(e){
         }     
 
 })
+
+function book(email){
+    const token = localStorage.getItem("token");
+    $.post('/bookproduct',{email:email,token:token},function(data){
+        if(data.stat== '200'){
+            alert(data.message);
+            location.reload();
+        }
+        else{
+            alert('there is something error');
+        }
+    })
+}

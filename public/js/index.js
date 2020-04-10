@@ -149,28 +149,28 @@ $("#btn-forgot").click(function(e){
     e.preventDefault();
   })
 
-  $("#livestatlink").click(function(e){    ///////////////protecting navbar mein id bhi dena h
-    const token = localStorage.getItem("token");
-    if(!token){location.replace('/#popup');}
-    else{
-      $.post('/protect',{token:token},function(data){
-        if(data.name == 'JsonWebTokenError'){
-          alert(data.message);
-          location.replace('/');
-        }
-        else if(data.stat= 200){
-           location.replace('/livestat');
-         }
-        else if(data.stat = 404){
-          location.replace('/#popup');
-        }
-       else{
-           alert('something wrong');
-         }
-      })
-    }
-    e.preventDefault();
-  })
+  // $("#livestatlink").click(function(e){    ///////////////protecting navbar mein id bhi dena h
+  //   const token = localStorage.getItem("token");
+  //   if(!token){location.replace('/#popup');}
+  //   else{
+  //     $.post('/protect',{token:token},function(data){
+  //       if(data.name == 'JsonWebTokenError'){
+  //         alert(data.message);
+  //         location.replace('/');
+  //       }
+  //       else if(data.stat= 200){
+  //          location.replace('/livestat');
+  //        }
+  //       else if(data.stat = 404){
+  //         location.replace('/#popup');
+  //       }
+  //      else{
+  //          alert('something wrong');
+  //        }
+  //     })
+  //   }
+  //   e.preventDefault();
+  // })
 
 
   $("#buy").click(function(e){

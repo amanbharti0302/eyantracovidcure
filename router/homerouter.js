@@ -32,5 +32,5 @@ router.get('/sellertab',homecontroller.sellertab);
 router.post('/getinfo',homecontroller.getinfo);
 router.post('/getdataofproduct',homecontroller.getdataofproduct);
 router.post('/itemform',homecontroller.Itemform);  //user submit their requiremeint form here
-
+router.post('/bookproduct',homecontroller.bookproduct);
 module.exports = router;
