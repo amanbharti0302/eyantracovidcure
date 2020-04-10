@@ -41,5 +41,7 @@ For Setup:-
 	step 7: Create Google map api key and include it's scrypt src in config.env with name 'map_key'.
 		(ie- map_key: https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places)
 	
-Gotcha, setup completed. run 'localhost:3000/' in browser and get benifits of our precious website.
+Gotcha, setup completed. run 'localhost:{PORT of config.env||3000}/' in browser and get benifits of our precious website.
+to run server type "npm start" in your command line interface
 	
+NOTE:  if there is any problem of getting statedata on database then in please make all collection mentioned in the statedataSchema of model   folder in database for one time.Do not insert any data in it.Later Server will automatically update it.
