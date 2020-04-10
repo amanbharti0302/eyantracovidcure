@@ -111,8 +111,7 @@ exports.getpage = async (req, res) => {
 
 exports.hospitals = async (req, res) => {
 	try {
-		const map_key = process.env.map_key;
-		res.render('hospitals');
+		res.render('hospitals',{key:process.env.map_key});
 	}
 	catch (err) {
 		res.send(err);
