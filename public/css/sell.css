@@ -1,7 +1,6 @@
 
 .order-container {
    position: relative;
-   background-color: azure;
 }
 
 .order_items {
@@ -9,6 +8,7 @@
    width: 100%;
    min-height: 10rem;
    background-color: antiquewhite;
+   border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
 }
 
 .overlay {
@@ -25,6 +25,9 @@
 }
 
 .order_items:hover .overlay {
+
    bottom: 0;
    height: 100%;
+   border-radius: 50% 50% 50% 50% / 5% 5% 5% 5%;
+   box-shadow: 10px 10px rgba(0, 0, 0, 0.25);
 }

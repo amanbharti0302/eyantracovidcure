@@ -392,7 +392,7 @@ exports.getdataofproduct = async(req,res)=>{
 			res.send({stat: '404'});
 		}
 		else{
-			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district,status:'un booked'});
+			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district,status:'unbooked'});
 			res.send({stat: '200',allproduct:allproduct});
 		}
 

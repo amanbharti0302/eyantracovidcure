@@ -27,7 +27,7 @@ const pruductSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default:'un booked'
+        default:'unbooked'
     },
     shopkeeperid:{
         type:String,
