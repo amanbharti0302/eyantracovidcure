@@ -1,4 +1,4 @@
-	COVIDCARE WEBSITE : https://github.com/amanbharti0302/eyantracovidcure
+	COVIDCARE WEBSITE : https://covid19pr.herokuapp.com/
 
 Covidcare project includes the following feature:-
 	1- The person who requires commodities can list them and upload it to the website which will be
