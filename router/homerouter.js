@@ -6,6 +6,7 @@ const router = express.Router();
 //all functions of following routes are in homecontroller of controller
 
 router.get('/', homecontroller.cover);
+router.get('/cover',homecontroller.cover);
 
 router.post('/protect', homecontroller.protector);
 router.post('/tokencheck', homecontroller.tokencheck)
