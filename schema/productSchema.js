@@ -13,11 +13,17 @@ const pruductSchema = new mongoose.Schema({
     address:{
         type:String
     },
-    order_item:{
+    state:{
         type:String
     },
-    quantity:{
+    district:{
         type:String
+    },
+    order_item:{
+        type:Array
+    },
+    quantity:{
+        type:Array
     },
     status:{
         type:String,

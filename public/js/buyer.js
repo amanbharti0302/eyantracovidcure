@@ -7,6 +7,8 @@ $(document).ready(function () {
                     $("#inputPhone").val(data.currentUser.mobile);
                     $("#Address").val(data.currentUser.address1);
                     $("#inputEmail").val(data.currentUser.email);
+                    $("#inputstate").val(data.currentUser.state);
+                    $("#inputdistrict").val(data.currentUser.district);
                     
                 }
                 else{
