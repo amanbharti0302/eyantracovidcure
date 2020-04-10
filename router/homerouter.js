@@ -27,7 +27,9 @@ router.post('/users/resetPassword/:token',homecontroller.changepassword);
 
 router.get('/buyer/:token',homecontroller.buy);
 router.get('/buyertab',homecontroller.buyertab);
+router.get('/sellertab',homecontroller.sellertab);
 router.post('/getinfo',homecontroller.getinfo);
+router.post('/getdataofproduct',homecontroller.getdataofproduct);
 router.post('/itemform',homecontroller.Itemform);  //user submit their requiremeint form here
 
 module.exports = router;

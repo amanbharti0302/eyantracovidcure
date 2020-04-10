@@ -190,6 +190,23 @@ $("#btn-forgot").click(function(e){
     e.preventDefault();
   })
 
+  $("#sell").click(function(e){
+    const token = localStorage.getItem("token");
+    if(!token){location.replace('#popup');}
+    else{
+      $.get(`/buyer/${token}`,{token:token},function(data){
+        if(data == 'true'){
+          location.replace('/sellertab');
+        }
+        else{
+          alert('session timed out');
+          location.replace('/#popup');
+        }
+      })
+    }
+    e.preventDefault();
+  })
+
 })
 
 $.fn.onscroll = function (options) {

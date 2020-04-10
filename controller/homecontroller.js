@@ -111,6 +111,7 @@ exports.getpage = async (req, res) => {
 
 exports.hospitals = async (req, res) => {
 	try {
+		const map_key = process.env.map_key;
 		res.render('hospitals');
 	}
 	catch (err) {
@@ -312,7 +313,6 @@ exports.protector = async (req, res) => {
 
 exports.buy = async(req,res)=>{
 	try{
-		//console.log(req.body);
 		const decoded = (jwt.verify)(req.params.token, process.env.JWT_SECRET);
 		const currentUser =await user.findById(decoded.id);
 		if(!currentUser){
@@ -362,6 +362,36 @@ exports.Itemform = async(req,res)=>{
 		const obj = req.body;
 	    const newbuyproduct = await buyproduct.create(obj);
 		res.redirect('/');
+	}
+	catch(err){
+
+		res.send(err);
+	}
+}
+
+
+exports.sellertab = async(req,res)=>{
+	try{
+		res.render('sell');
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+exports.getdataofproduct = async(req,res)=>{
+	try{
+		const token = req.body.token;
+		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
+		const currentUser =await user.findById(decoded.id);
+		if(!currentUser){
+			res.send({stat: '404'});
+		}
+		else{
+			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district});
+			res.send({stat: '200',allproduct:allproduct});
+		}
+
 	}
 	catch(err){
 		res.send(err);
