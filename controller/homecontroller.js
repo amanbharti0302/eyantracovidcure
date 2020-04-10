@@ -12,7 +12,7 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
          user: process.env.email,
-         pass: process.env.password
+		 pass: process.env.password
      }
  });
 
@@ -180,6 +180,7 @@ exports.signup_post = async (req, res) => {
 		 transporter.sendMail(mailOptions, function (err, info) {
 		   if(err)
 			 res.send({stat:"404",message:"Currentl unable to signup"});
+
 		});
 
    	    res.send({stat:'200',message:'please check your email to verify email'});
