@@ -134,6 +134,10 @@ exports.logincheck = async (req, res) => {
 
 		const loginuser = await user.findOne({ email });
 		if (!loginuser) { res.send({ status: "fail", message: 'wrong email or password', stat: '-1' }); }
+		else if(loginuser.status == "not registered")
+		{
+			res.send({stat:'-1',message:'you have not verified your email.'});
+		}
 		else {
 			const ch = await bcrypt.compare(password, loginuser.password);
 			if (ch == false) { res.send({ status: "fail", message: 'wrong email or password', stat: '-1' }); }
