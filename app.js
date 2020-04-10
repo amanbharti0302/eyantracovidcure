@@ -9,6 +9,7 @@ const worlddata = require('./api/worlddata');
 const statedata = require('./api/statelivedata');
 const timelinedata = require('./api/timelinedata');
 
+
 app.use(bodyParser.urlencoded({
    extended: true
 }));
@@ -43,9 +44,9 @@ app.all('*', (req, res, next) => {
    console.log('updating state and total data in database');
   }
 
-setInterval(intervalFunc, 600000);
-setInterval(intervalFunc1, 7200000);
-setInterval(intervalFunc2, 3600000);
+setInterval(intervalFunc, 10000);
+setInterval(intervalFunc1, 12000);
+setInterval(intervalFunc2, 14000);
 
 
 module.exports = app;
