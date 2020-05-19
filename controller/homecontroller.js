@@ -34,6 +34,68 @@ exports.cover = async (req, res) => {
 }
 
 
+exports.getcountrydata = async(req,res)=>{
+	try{
+		const countrywise = await worlddata.find();
+		res.send(countrywise);
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+exports.statedata = async(req,res)=>{
+	try{
+		var statewise = [];
+
+		const totalindia_data = await totalindia.findOne();
+
+		statewise.push(await statedata.Maharashtra.findOne());
+		statewise.push(await statedata.Tamil_Nadu.findOne());
+		statewise.push(await statedata.Delhi.findOne());
+		statewise.push(await statedata.Kerala.findOne());
+		statewise.push(await statedata.Uttar_Pradesh.findOne());
+		statewise.push(await statedata.Andhra_Pradesh.findOne());
+		statewise.push(await statedata.Rajasthan.findOne());
+		statewise.push(await statedata.Telangana.findOne());
+		statewise.push(await statedata.Karnataka.findOne());
+		statewise.push(await statedata.Madhya_Pradesh.findOne());
+		statewise.push(await statedata.Gujarat.findOne());
+		//statewise.push(await statedata.Jammu_Kashmir.findOne());
+		statewise.push(await statedata.Haryana.findOne());
+		statewise.push(await statedata.West_Bengal.findOne());
+		statewise.push(await statedata.Punjab.findOne());
+		statewise.push(await statedata.Bihar.findOne());
+		statewise.push(await statedata.Chandigarh.findOne());
+		statewise.push(await statedata.Assam.findOne());
+		statewise.push(await statedata.Ladakh.findOne());
+		statewise.push(await statedata.Andaman_Nicobar.findOne());
+		statewise.push(await statedata.Uttarakhand.findOne());
+		statewise.push(await statedata.Chhattisgarh.findOne());
+		statewise.push(await statedata.Goa.findOne());
+		statewise.push(await statedata.Himachal_Pradesh.findOne());
+		statewise.push(await statedata.Odisha.findOne());
+		statewise.push(await statedata.Puducherry.findOne());
+		statewise.push(await statedata.Jharkhand.findOne());
+		statewise.push(await statedata.Manipur.findOne());
+		statewise.push(await statedata.Mizoram.findOne());
+		statewise.push(await statedata.Arunachal_Pradesh.findOne());
+		statewise.push(await statedata.Dadra_Nagar_Haveli.findOne());
+		statewise.push(await statedata.Daman_Diu.findOne());
+		statewise.push(await statedata.Lakshadweep.findOne());
+		statewise.push(await statedata.Meghalaya.findOne());
+		statewise.push(await statedata.Nagaland.findOne());
+		statewise.push(await statedata.Sikkim.findOne());
+		statewise.push(await statedata.Tripura.findOne());
+		res.send(statewise);
+	}
+	catch(err){
+		res.send(err);
+	}
+}
+
+
+
 exports.getlivestat = async (req, res) => {
 	try {
 		var statewise = [];
@@ -393,6 +455,7 @@ exports.getdataofproduct = async(req,res)=>{
 		}
 		else{
 			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district,status:'unbooked'});
+			//console.log(allproduct);
 			res.send({stat: '200',allproduct:allproduct});
 		}
 
@@ -403,10 +466,10 @@ exports.getdataofproduct = async(req,res)=>{
 }
 
 exports.bookproduct = async(req,res)=>{
-	try{const email = req.body.email;
+	try{const buyerid = req.body.id;
 		const token = req.body.token;
 		const id = (jwt.verify)(token, process.env.JWT_SECRET).id;
-		const buyer =await buyproduct.findOne({email});
+		const buyer =await buyproduct.findById(buyerid);
 		buyer.status = "booked";
 		buyer.shopkeeperid = id;
 		await buyer.save();

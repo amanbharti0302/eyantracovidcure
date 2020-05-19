@@ -13,6 +13,8 @@ router.post('/tokencheck', homecontroller.tokencheck)
 router.get('/home', homecontroller.getpage);
 router.get('/livestat', homecontroller.getlivestat);
 router.get('/totaldata', homecontroller.gettotal);
+router.get('/worlddata', homecontroller.getcountrydata);
+router.get('/statedata', homecontroller.statedata);
 
 
 

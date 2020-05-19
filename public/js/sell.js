@@ -8,14 +8,13 @@ $(document).ready(function(e){
                         if(data.stat == 200){
                             const allproduct = data.allproduct;
                             allproduct.map((el)=>{
-
                                 ol = $("<ol>")
                                 var orderlength = el.order_item.length;
                                 for(var i=0;i<orderlength;i++)
                                 {li = $(`<li>${el.order_item[i]} - ${el.quantity[i]}</li>`)
                                   ol.append(li);
                                 }
-                                overlay = $(`<div class="overlay" onclick="book('${el.email}')">`)
+                                overlay = $(`<div class="overlay" onclick="book('${el._id}')">`)
                                 overlay.append($(`<h2 style="font-size:17px;margin-bottom: 0;">${el.name}</h2>`))
                                 overlay.append($(`<p style="font-size: 17px;margin-bottom: 0;">phone no:- ${el.mobileno}</>`))
                                 overlay.append($(`<p style="font-size: 17px;margin-bottom: 0;">Email:- ${el.email}</p>`))
@@ -55,9 +54,9 @@ $(document).ready(function(e){
 
 })
 
-function book(email){
+function book(id){
     const token = localStorage.getItem("token");
-    $.post('/bookproduct',{email:email,token:token},function(data){
+    $.post('/bookproduct',{id:id,token:token},function(data){
         if(data.stat== '200'){
             alert(data.message);
             location.reload();

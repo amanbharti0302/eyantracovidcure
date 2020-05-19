@@ -7,7 +7,7 @@ var req = unirest("GET", "https://corona-virus-world-and-india-data.p.rapidapi.c
 
 req.headers({
 	"x-rapidapi-host": "corona-virus-world-and-india-data.p.rapidapi.com",
-	"x-rapidapi-key": "get key from https://corona-virus-world-and-india-data.p.rapidapi.com/api"
+	"x-rapidapi-key": "518dc8a1fdmshbc6babb05fb2828p1ef61ajsnbe5662797c2a"
 });
 
 req.end(async (res) =>{

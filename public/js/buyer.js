@@ -9,7 +9,7 @@ $(document).ready(function () {
                     $("#inputEmail").val(data.currentUser.email);
                     $("#inputstate").val(data.currentUser.state);
                     $("#inputdistrict").val(data.currentUser.district);
-                    
+                    $("#id").val(data.currentUser._id);
                 }
                 else{
                     alert('session expired');

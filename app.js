@@ -44,9 +44,9 @@ app.all('*', (req, res, next) => {
    console.log('updating state and total data in database');
   }
 
-setInterval(intervalFunc, 10000);
-setInterval(intervalFunc1, 12000);
-setInterval(intervalFunc2, 14000);
+setInterval(intervalFunc, 300000);
+setInterval(intervalFunc1, 320000);
+setInterval(intervalFunc2, 360000);
 
 
 module.exports = app;
