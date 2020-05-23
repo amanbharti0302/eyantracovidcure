@@ -59,6 +59,7 @@ NODE_ENV=development
 PORT=4000
 
 DATABASE= mongodb+srv://aman:<password>@cluster0-hhnva.mongodb.net/test?retryWrites=true&w=majority
+	
 DATABASE_PASWORD= aman
 
 JWT_SECRET=Your secret
