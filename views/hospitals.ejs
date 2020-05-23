@@ -1,10 +1,9 @@
 <%- include('navbar') -%>
-<script type="text/javascript"
-      src='<%=key%>'></script>
-      
+<script type="text/javascript" src='<%=key%>'></script>
+
 <div id="home-img" class="home-img"><img src="images/covidcare.png" alt="Covidcare"></div>
 <div class="container hospital_map">
-   <div class="paper hospital_heading">
+   <div class="hospital_heading bg-color shadow">
       <h1 style="color: slategrey;">Search Hospetal near Your place</h1>
       <p>If you think you have been exposed to novel coronavirus (COVID-19), and have developed any symptoms (cough,
          fever or difficulty breathing), call the Govt. of India helpline 1075 or the state helpline numbers and visit
@@ -15,13 +14,13 @@
          <input id="pac-input" type="text" placeholder="Enter a location">
       </div>
    </div>
-   <div id="map"></div>
+   <div class="shadow" id="map"></div>
    <div id="infowindow-content" style="background-color: aliceblue;">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name" class="title"></span><br>
       <span id="place-address"></span>
    </div>
-   <div class="hospital_item hide">
+   <div class="hospital_item hide bg-color shadow">
       <h2>Results</h2>
       <hr>
       <div class="overflow-auto">

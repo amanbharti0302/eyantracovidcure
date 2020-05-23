@@ -1,109 +1,105 @@
 <%- include('navbar') -%>
-   <script src="js/buyer.js"></script>
-   <div class="container mt-8" id="order_body">
-      <div class="row">
-         <div class="col align-items-start">
-            <div class="col-lg-4">
-               <div class="card" style="width: 18rem;">
-                  <img src="images/covidcare.png" class="card-img-top" alt="Covidcare logo">
-                  <div class="card-body">
-                     <h5 class="card-title">Covidcare</h5>
-                     <p class="card-text">It's our prime duty to keep your demand at top priority. We refrain
-                        from abstracting the users through updates and news.</p>
-                     <a href="/" class="btn btn-primary">Back to Home</a>
-                  </div>
+<script src="js/buyer.js"></script>
+<div class="container mt-8 alt-color shadow" id="order_body">
+   <div class="row">
+      <div class="col align-items-start">
+         <div class="col-lg-4">
+            <div class="card" style="width: 18rem;">
+               <img src="images/covidcare.png" class="card-img-top" alt="Covidcare logo">
+               <div class="card-body">
+                  <h5 class="card-title">Covidcare</h5>
+                  <p class="card-text">It's our prime duty to keep your demand at top priority. We refrain
+                     from abstracting the users through updates and news.</p>
+                  <a href="/" class="btn btn-primary">Back to Home</a>
                </div>
             </div>
-         </div>
-         <div class="col col-sm-8">
-            <div class="alert alert-info" role="alert">
-               Please enter detail of orders here.
-            </div>
-            <form action="/itemform" method = "POST">
-
-               <div class="input-group mb-3">
-                  <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="basic-addon1">@</span>
-                  </div>
-                  <input id="inputName" name="name" type="text" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1" value="xxxxxx">
-               </div>
-
-               <div class="input-group mb-3">
-                  <label for="inputPhone" class="col-sm-2 col-form-label">Phone No.</label>
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="basic-addon1">@</span>
-                  </div>
-                  <input id="inputPhone" name="mobileno" type="number" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1"
-                     value="xxxxxx">
-               </div>
-
-               <div class="input-group mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label" >Email</label>
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="basic-addon1">@</span>
-                  </div>
-                  <input id="inputEmail" name="email" type="text" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1"
-                     value="email@example.com">
-               </div>
-
-               <div class="input-group mb-3">
-                  <label for="inputstate" class="col-sm-2 col-form-label" >State</label>
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="basic-addon1">@</span>
-                  </div>
-                  <input id="inputstate" name="state" type="text" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1"
-                     value="XXXXXXXX">
-               </div>
-               <div class="input-group mb-3">
-                  <label for="inputdistrict" class="col-sm-2 col-form-label" >District</label>
-                  <div class="input-group-prepend">
-                     <span class="input-group-text" id="basic-addon1">@</span>
-                  </div>
-                  <input id="inputdistrict" name="district" type="text" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1"
-                     value="XXXXXXXX">
-               </div>
-
-               <div class="form-group row">
-                  <label class="col-2" for="Address" >Address</label>
-                  <textarea readonly class="form-control col-10" id="Address" rows="3"
-                     placeholder="xxxxxxxxxxxx" name="address"></textarea>
-               </div>
-
-               <div class="input-group mb-3" style="display: none;">
-                  <label for="id" class="col-sm-2 col-form-label" >id</label>
-                  <input id="id" name="id" type="text" class="form-control" readonly
-                     class="form-control-plaintext" aria-label="id" aria-describedby="basic-addon1"
-                     value="id">
-               </div>
-
-
-               <div id="items" class="input-group mb-3">
-                  <div id="new">
-                     <label for="order_item" class="col-sm-2 col-form-label">Item</label>
-                      <div class="input-group-prepend">
-                     </div>
-                     <div class="row">
-                        <input id="order_item" class="col-8 form-control" name="order_item" type="text"
-                           placeholder="Enter Order Here" required>
-                        <input type="number" class="col-2 form-control" placeholder="amount" name="quantity" required>
-                        <a id="addbtn" class="btn bg-info mx-auto rounded-circle">+</a>
-                     </div>
-                     
-                  </div>
-                  
-               </div>
-
-               <button type="submit" class="btn btn-primary btn-lg float-right" id="buyer-btn">Order Now</button>
-            </form>
          </div>
       </div>
+      <div class="col col-sm-8">
+         <div class="alert alert-info" role="alert">
+            Please enter detail of orders here.
+         </div>
+         <form action="/itemform" method="POST">
+
+            <div class="input-group mb-3">
+               <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+               <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+               </div>
+               <input id="inputName" name="name" type="text" class="form-control" readonly
+                  class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1" value="xxxxxx">
+            </div>
+
+            <div class="input-group mb-3">
+               <label for="inputPhone" class="col-sm-2 col-form-label">Phone No.</label>
+               <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+               </div>
+               <input id="inputPhone" name="mobileno" type="number" class="form-control" readonly
+                  class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1" value="xxxxxx">
+            </div>
+
+            <div class="input-group mb-3">
+               <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+               <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+               </div>
+               <input id="inputEmail" name="email" type="text" class="form-control" readonly
+                  class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1"
+                  value="email@example.com">
+            </div>
+
+            <div class="input-group mb-3">
+               <label for="inputstate" class="col-sm-2 col-form-label">State</label>
+               <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+               </div>
+               <input id="inputstate" name="state" type="text" class="form-control" readonly
+                  class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1" value="XXXXXXXX">
+            </div>
+            <div class="input-group mb-3">
+               <label for="inputdistrict" class="col-sm-2 col-form-label">District</label>
+               <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+               </div>
+               <input id="inputdistrict" name="district" type="text" class="form-control" readonly
+                  class="form-control-plaintext" aria-label="Username" aria-describedby="basic-addon1" value="XXXXXXXX">
+            </div>
+
+            <div class="form-group row">
+               <label class="col-2" for="Address">Address</label>
+               <textarea readonly class="form-control col-10" id="Address" rows="3" placeholder="xxxxxxxxxxxx"
+                  name="address"></textarea>
+            </div>
+
+            <div class="input-group mb-3" style="display: none;">
+               <label for="id" class="col-sm-2 col-form-label">id</label>
+               <input id="id" name="id" type="text" class="form-control" readonly class="form-control-plaintext"
+                  aria-label="id" aria-describedby="basic-addon1" value="id">
+            </div>
+
+
+            <div id="items" class="input-group mb-3">
+               <div id="new">
+                  <label for="order_item" class="col-sm-2 col-form-label">Item</label>
+                  <div class="input-group-prepend">
+                  </div>
+                  <div class="row">
+                     <input id="order_item" class="col-8 form-control" name="order_item" type="text"
+                        placeholder="Enter Order Here" required>
+                     <input type="number" class="col-2 form-control" placeholder="amount" name="quantity" required>
+                     <a id="addbtn" class="btn bg-info mx-auto rounded-circle">+</a>
+                  </div>
+
+               </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg float-right" id="buyer-btn">Order Now</button>
+         </form>
+      </div>
    </div>
+</div>
 
 </body>
 

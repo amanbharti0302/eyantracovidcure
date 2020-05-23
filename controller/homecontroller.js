@@ -9,12 +9,12 @@ var nodemailer = require('nodemailer');
 const buyproduct = require('../schema/productSchema');
 
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-         user: process.env.email,
-		 pass: process.env.password
-     }
- });
+	service: 'gmail',
+	auth: {
+		user: process.env.email,
+		pass: process.env.password
+	}
+});
 
 
 const signToken = id => {
@@ -34,18 +34,18 @@ exports.cover = async (req, res) => {
 }
 
 
-exports.getcountrydata = async(req,res)=>{
-	try{
+exports.getcountrydata = async (req, res) => {
+	try {
 		const countrywise = await worlddata.find();
 		res.send(countrywise);
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.statedata = async(req,res)=>{
-	try{
+exports.statedata = async (req, res) => {
+	try {
 		var statewise = [];
 
 		const totalindia_data = await totalindia.findOne();
@@ -89,7 +89,7 @@ exports.statedata = async(req,res)=>{
 		statewise.push(await statedata.Tripura.findOne());
 		res.send(statewise);
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
@@ -141,7 +141,7 @@ exports.getlivestat = async (req, res) => {
 		statewise.push(await statedata.Sikkim.findOne());
 		statewise.push(await statedata.Tripura.findOne());
 
-		//console.log(countrywise);
+		// console.log(currentUser);
 		res.render("livedata", { totalindia_data: totalindia_data, statewise: statewise, countrywise: countrywise });
 
 	}
@@ -173,7 +173,7 @@ exports.getpage = async (req, res) => {
 
 exports.hospitals = async (req, res) => {
 	try {
-		res.render('hospitals',{key:process.env.map_key});
+		res.render('hospitals', { key: process.env.map_key });
 	}
 	catch (err) {
 		res.send(err);
@@ -196,9 +196,8 @@ exports.logincheck = async (req, res) => {
 
 		const loginuser = await user.findOne({ email });
 		if (!loginuser) { res.send({ status: "fail", message: 'wrong email or password', stat: '-1' }); }
-		else if(loginuser.status == "not registered")
-		{
-			res.send({stat:'-1',message:'you have not verified your email.'});
+		else if (loginuser.status == "not registered") {
+			res.send({ stat: '-1', message: 'you have not verified your email.' });
 		}
 		else {
 			const ch = await bcrypt.compare(password, loginuser.password);
@@ -234,18 +233,18 @@ exports.signup_post = async (req, res) => {
 		await new_user.save({ validateBeforeSave: false });
 		const resetURL = `${req.protocol}://${req.get('host')}/users/verifyemail/${resetToken}`;
 		const mailOptions = {
-		   from: process.env.email,
-		   to: new_user.email,
-		   subject: 'Covidcare.com Email verification',
-		   html: `<a href="${resetURL}" >${resetURL}</a>`
-		 };
-		 transporter.sendMail(mailOptions, function (err, info) {
-		   if(err)
-			 res.send({stat:"404",message:"Currentl unable to signup"});
+			from: process.env.email,
+			to: new_user.email,
+			subject: 'Covidcare.com Email verification',
+			html: `<a href="${resetURL}" >${resetURL}</a>`
+		};
+		transporter.sendMail(mailOptions, function (err, info) {
+			if (err)
+				res.send({ stat: "404", message: "Currentl unable to signup" });
 
 		});
 
-   	    res.send({stat:'200',message:'please check your email to verify email'});
+		res.send({ stat: '200', message: 'please check your email to verify email' });
 	}
 	catch (err) {
 		res.send({
@@ -256,27 +255,28 @@ exports.signup_post = async (req, res) => {
 	}
 }
 
-exports.verifyemail = async(req,res)=>{
-	try{
+exports.verifyemail = async (req, res) => {
+	try {
 		const hashedToken = crypto
-		.createHash('sha256')
-	    .update(req.params.token)
-		.digest('hex');
-		const User = await user.findOne({passwordResetToken: hashedToken});
+			.createHash('sha256')
+			.update(req.params.token)
+			.digest('hex');
+		const User = await user.findOne({ passwordResetToken: hashedToken });
 
-		if(!User){
+		if (!User) {
 			res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email not veified</h1></center><hr><center>covid19pr.com</center></body></html>');
 		}
-		else{
+		else {
 			User.status = "registered";
 			User.passwordResetToken = undefined;
 			User.passwordResetExpires = undefined;
-			await User.save();			  
+			await User.save();
 			res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email veified</h1></center><hr><center>covid19pr.com</center></body></html>');
 		}
 	}
-	catch(err){
-		res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email not veified</h1></center><hr><center>covid19pr.com</center></body></html>');	}
+	catch (err) {
+		res.send('<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email not veified</h1></center><hr><center>covid19pr.com</center></body></html>');
+	}
 }
 
 exports.tokencheck = async (req, res) => {
@@ -295,71 +295,70 @@ exports.tokencheck = async (req, res) => {
 }
 
 
-exports.forgotpassword = async(req,res)=>{
-	try{
+exports.forgotpassword = async (req, res) => {
+	try {
 		const email = req.body.email;
 		const User = await user.findOne({ email: email });
 
-		if(!User){
-			res.send({stat:'404',message:'please enter correct email'});
+		if (!User) {
+			res.send({ stat: '404', message: 'please enter correct email' });
 		}
-		else if(User.status == "not registered")
-		{
-			res.send({stat:'404',message:'you have not verified your email.'});
+		else if (User.status == "not registered") {
+			res.send({ stat: '404', message: 'you have not verified your email.' });
 		}
-		else{
-		 const resetToken = User.createPasswordResetToken();
-         await User.save({ validateBeforeSave: false });
-		 const resetURL = `${req.protocol}://${req.get('host')}/users/resetPassword/${resetToken}`;
-		 const mailOptions = {
-			from: process.env.email,
-			to: User.email,
-			subject: 'Covidcare.com password change request',
-			html: `<a href="${resetURL}" >${resetURL}</a>`
-		  };
-		  transporter.sendMail(mailOptions, function (err, info) {
-			if(err)
-			  res.send({stat:"404",message:"Currentl unable to change password"});
-		 });
-		res.send({stat:'200',message:'please check your email to change password'});
-	   }
+		else {
+			const resetToken = User.createPasswordResetToken();
+			await User.save({ validateBeforeSave: false });
+			const resetURL = `${req.protocol}://${req.get('host')}/users/resetPassword/${resetToken}`;
+			const mailOptions = {
+				from: process.env.email,
+				to: User.email,
+				subject: 'Covidcare.com password change request',
+				html: `<a href="${resetURL}" >${resetURL}</a>`
+			};
+			transporter.sendMail(mailOptions, function (err, info) {
+				if (err)
+					res.send({ stat: "404", message: "Currentl unable to change password" });
+			});
+			res.send({ stat: '200', message: 'please check your email to change password' });
+		}
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.resetpassword = async(req,res)=>{
-	try{
+exports.resetpassword = async (req, res) => {
+	try {
 
-	const hashedToken = crypto
-		.createHash('sha256')
-	    .update(req.params.token)
-		.digest('hex');
-	
-	const User = await user.findOne({passwordResetToken: hashedToken,passwordResetExpires: { $gt: Date.now() }});
-	 res.render('forgotpassword',{User:User,token:req.params.token});
-	}
-	catch(err){
-		res.send(err);
-	}
-}
-
-exports.changepassword = async(req,res)=>{
-	try{
 		const hashedToken = crypto
-		.createHash('sha256')
-	    .update(req.params.token)
-		.digest('hex');
-		
-		const User = await user.findOne({passwordResetToken: hashedToken,passwordResetExpires: { $gt: Date.now() }});
+			.createHash('sha256')
+			.update(req.params.token)
+			.digest('hex');
+
+		const User = await user.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
+		res.render('forgotpassword', { User: User, token: req.params.token });
+	}
+	catch (err) {
+		res.send(err);
+	}
+}
+
+exports.changepassword = async (req, res) => {
+	try {
+		const hashedToken = crypto
+			.createHash('sha256')
+			.update(req.params.token)
+			.digest('hex');
+
+		const User = await user.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
 		User.password = await bcrypt.hash(req.body.password, 12);
 		User.passwordResetToken = undefined;
-  		User.passwordResetExpires = undefined;
-  		await User.save();
+		User.passwordResetExpires = undefined;
+		await User.save();
 		res.send('successfully changed password');
 	}
-	catch(err){
+	catch (err) {
 		res.send('err');
 	}
 }
@@ -369,114 +368,205 @@ exports.protector = async (req, res) => {
 	try {
 		const decoded = (jwt.verify)(req.body.token, process.env.JWT_SECRET);
 		const currentUser = await user.findById(decoded.id);
-		if (!currentUser) {console.log('ok'); res.send({stat : '200'}); }
-		else {res.send({stat : '200'}); }
+		if (!currentUser) { console.log('ok'); res.send({ stat: '200' }); }
+		else { res.send({ stat: '200' }); }
 	}
 	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.buy = async(req,res)=>{
-	try{
+exports.buy = async (req, res) => {
+	try {
 		const decoded = (jwt.verify)(req.params.token, process.env.JWT_SECRET);
-		const currentUser =await user.findById(decoded.id);
-		if(!currentUser){
+		const currentUser = await user.findById(decoded.id);
+		if (!currentUser) {
 			res.send('false');
 		}
-		else{
+		else {
 			res.send('true');
 		}
 	}
-	catch(err){
+	catch (err) {
 		console.log(err);
 		res.send(err);
 	}
 }
 
-exports.buyertab = async(req,res)=>{
-	try{
+exports.buyertab = async (req, res) => {
+	try {
 		res.render('buyer');
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.getinfo = async(req,res)=>{
-	try{
+exports.getinfo = async (req, res) => {
+	try {
 		const token = req.body.token;
 		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
-		const currentUser =await user.findById(decoded.id);
-		if(!currentUser){
-			res.send({stat: '404'});
+		const currentUser = await user.findById(decoded.id);
+		if (!currentUser) {
+			res.send({ stat: '404' });
 		}
-		else{
-			res.send({stat: '200',currentUser:currentUser});
+		else {
+			res.send({ stat: '200', currentUser: currentUser });
 		}
 
 	}
-	catch(err){
+	catch (err) {
 		console.log(err)
 		res.send(err);
 	}
 }
 
 
-exports.Itemform = async(req,res)=>{
-	try{
+exports.Itemform = async (req, res) => {
+	try {
 		const obj = req.body;
-	    const newbuyproduct = await buyproduct.create(obj);
+		const newbuyproduct = await buyproduct.create(obj);
 		res.redirect('/');
 	}
-	catch(err){
+	catch (err) {
 
 		res.send(err);
 	}
 }
 
 
-exports.sellertab = async(req,res)=>{
-	try{
+exports.sellertab = async (req, res) => {
+	try {
 		res.render('sell');
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.getdataofproduct = async(req,res)=>{
-	try{
+exports.myOrder = async (req, res) => {
+	try {
+		res.render('myOrder');
+	}
+	catch (err) {
+		res.send(err);
+	}
+}
+
+exports.getdataofproduct = async (req, res) => {
+	try {
 		const token = req.body.token;
 		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
-		const currentUser =await user.findById(decoded.id);
-		if(!currentUser){
-			res.send({stat: '404'});
+		const currentUser = await user.findById(decoded.id);
+		if (!currentUser) {
+			res.send({ stat: '404' });
 		}
-		else{
-			const allproduct = await buyproduct.find({state:currentUser.state,district:currentUser.district,status:'unbooked'});
+		else {
+			const allproduct = await buyproduct.find({ state: currentUser.state, district: currentUser.district, status: 'unbooked' });
 			//console.log(allproduct);
-			res.send({stat: '200',allproduct:allproduct});
+			res.send({ stat: '200', allproduct: allproduct });
 		}
 
 	}
-	catch(err){
+	catch (err) {
 		res.send(err);
 	}
 }
 
-exports.bookproduct = async(req,res)=>{
-	try{const buyerid = req.body.id;
+exports.getMyOrder = async (req, res) => {
+	try {
+		const token = req.body.token;
+		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
+		const currentUser = await user.findById(decoded.id);
+		if (!currentUser) {
+			res.send({ stat: '404' });
+		}
+		else {
+			const bookedProduct = await buyproduct.find({ email: currentUser.email, status: 'booked' });
+			const unbookedProduct = await buyproduct.find({ email: currentUser.email, status: 'unbooked' });
+			//console.log(allproduct);
+			res.send({ stat: '200', bookedProduct: bookedProduct, unbookedProduct: unbookedProduct });
+		}
+
+	}
+	catch (err) {
+		res.send(err);
+	}
+}
+
+exports.bookproduct = async (req, res) => {
+	try {
+		const buyerid = req.body.id;
 		const token = req.body.token;
 		const id = (jwt.verify)(token, process.env.JWT_SECRET).id;
-		const buyer =await buyproduct.findById(buyerid);
+		const buyer = await buyproduct.findById(buyerid);
 		buyer.status = "booked";
 		buyer.shopkeeperid = id;
 		await buyer.save();
-		res.send({stat:200,message:'successfully booked'});
+		res.send({ stat: 200, message: 'successfully booked' });
 	}
-	catch(err){
+	catch (err) {
 		console.log(err);
-		res.send({stat:500,message:err});
+		res.send({ stat: 500, message: err });
+	}
+}
+
+exports.liveData = async (req, res) => {
+	try {
+		var statewise = [];
+
+		const token = req.body.token;
+		const decoded = (jwt.verify)(token, process.env.JWT_SECRET);
+		const currentUser = await user.findById(decoded.id);
+
+		statewise.push(await statedata.Maharashtra.findOne());
+		statewise.push(await statedata.Tamil_Nadu.findOne());
+		statewise.push(await statedata.Delhi.findOne());
+		statewise.push(await statedata.Kerala.findOne());
+		statewise.push(await statedata.Uttar_Pradesh.findOne());
+		statewise.push(await statedata.Andhra_Pradesh.findOne());
+		statewise.push(await statedata.Rajasthan.findOne());
+		statewise.push(await statedata.Telangana.findOne());
+		statewise.push(await statedata.Karnataka.findOne());
+		statewise.push(await statedata.Madhya_Pradesh.findOne());
+		statewise.push(await statedata.Gujarat.findOne());
+		//statewise.push(await statedata.Jammu_Kashmir.findOne());
+		statewise.push(await statedata.Haryana.findOne());
+		statewise.push(await statedata.West_Bengal.findOne());
+		statewise.push(await statedata.Punjab.findOne());
+		statewise.push(await statedata.Bihar.findOne());
+		statewise.push(await statedata.Chandigarh.findOne());
+		statewise.push(await statedata.Assam.findOne());
+		statewise.push(await statedata.Ladakh.findOne());
+		statewise.push(await statedata.Andaman_Nicobar.findOne());
+		statewise.push(await statedata.Uttarakhand.findOne());
+		statewise.push(await statedata.Chhattisgarh.findOne());
+		statewise.push(await statedata.Goa.findOne());
+		statewise.push(await statedata.Himachal_Pradesh.findOne());
+		statewise.push(await statedata.Odisha.findOne());
+		statewise.push(await statedata.Puducherry.findOne());
+		statewise.push(await statedata.Jharkhand.findOne());
+		statewise.push(await statedata.Manipur.findOne());
+		statewise.push(await statedata.Mizoram.findOne());
+		statewise.push(await statedata.Arunachal_Pradesh.findOne());
+		statewise.push(await statedata.Dadra_Nagar_Haveli.findOne());
+		statewise.push(await statedata.Daman_Diu.findOne());
+		statewise.push(await statedata.Lakshadweep.findOne());
+		statewise.push(await statedata.Meghalaya.findOne());
+		statewise.push(await statedata.Nagaland.findOne());
+		statewise.push(await statedata.Sikkim.findOne());
+		statewise.push(await statedata.Tripura.findOne());
+
+		// console.log(currentUser);
+
+		if (!currentUser) {
+			res.send({ stat: '404' });
+		}
+		else {
+			res.send({ stat: 200, statewise: statewise, state: currentUser.state, district: currentUser.district });
+		}
+	}
+	catch (err) {
+		res.send(err);
 	}
 }

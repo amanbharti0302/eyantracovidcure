@@ -1,33 +1,49 @@
-
-.order-container {
-   position: relative;
+.orders {
+   width: 100%;
+   margin: 1.2rem;
 }
 
-.order_items {
+.orders .cards {
+   margin: 0 auto;
+}
+
+.order-card {
+   width: 400px;
+   display: flex;
+   flex-direction: column;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   border-radius: 8px;
+   box-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.order-card h2.name {
+   font-size: 23px;
+   font-weight: 500;
+   color: red;
+   margin: 4px 2px;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.order-card p {
+   font-size: 16px;
+   font-weight: 400;
+   color: #333;
+   margin: 2px 2px;
+}
+
+.order-card ul {
+   margin: 4px 2px;
+   list-style-type: none;
+}
+
+ul li {
+   font-size: 16px;
+   font-weight: 300;
+   color: #333;
+}
+
+.order-card button {
    display: block;
-   width: 100%;
-   min-height: 10rem;
-   background-color: antiquewhite;
-   border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
-}
-
-.overlay {
-   font-size: 2px !important;
-   position: absolute;
-   bottom: 100%;
-   left: 0;
-   right: 0;
-   background-color: #008CBA;
-   overflow: hidden;
-   width: 100%;
-   height: 0;
-   transition: .5s ease;
-}
-
-.order_items:hover .overlay {
-
-   bottom: 0;
-   height: 100%;
-   border-radius: 50% 50% 50% 50% / 5% 5% 5% 5%;
-   box-shadow: 10px 10px rgba(0, 0, 0, 0.25);
+   width: 160px;
+   margin: 4px auto;
 }

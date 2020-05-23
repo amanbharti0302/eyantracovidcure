@@ -1,0 +1,33 @@
+.myorder-container{
+    padding-top: 100px;
+}
+.myorders{
+    width: 100%;
+    margin: 1.2rem;
+}
+
+.myorders .stat-cards{
+    margin: 0 auto;
+}
+.stat-card{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    box-shadow: 2px 1px rgba(0,0,0,0.1);
+}
+.stat-card h2{
+    font-size: 20px;
+    font-weight: 500;
+    color: #222;
+    margin: 4px 2px;
+}
+.stat-card ul{
+    list-style-type: none;
+    margin: 4px 2;
+} 
+ul li{
+    font-size: 18px;
+    margin: 2px 2px;
+}

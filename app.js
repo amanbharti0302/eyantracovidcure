@@ -8,10 +8,11 @@ const app = express();
 const worlddata = require('./api/worlddata');
 const statedata = require('./api/statelivedata');
 const timelinedata = require('./api/timelinedata');
+const districtdata = require('./api/districtlivedata');
 
 
 app.use(bodyParser.urlencoded({
-   extended: true
+  extended: true
 }));
 
 
@@ -19,8 +20,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(express.static("public"));
 
-app.use('/',homerouter);    //from here home router in router will control all routes
-app.use('/public/',protectedrouter);
+app.use('/', homerouter);    //from here home router in router will control all routes
+app.use('/public/', protectedrouter);
 
 
 
@@ -29,24 +30,30 @@ app.all('*', (req, res, next) => {
 });
 
 
- function intervalFunc() {
-   timelinedata.writedata();
-   console.log('updating timeline data in database');
-  }
+function intervalFunc() {
+  timelinedata.writedata();
+  console.log('updating timeline data in database');
+}
 
-  function intervalFunc1() {
-   worlddata.writedata();
-   console.log('updating world data in database');
-  }
+function intervalFunc1() {
+  worlddata.writedata();
+  console.log('updating world data in database');
+}
 
-  function intervalFunc2() {
-    statedata.writedata();
-   console.log('updating state and total data in database');
-  }
+function intervalFunc2() {
+  statedata.writedata();
+  console.log('updating state and total data in database');
+}
 
-setInterval(intervalFunc, 300000);
-setInterval(intervalFunc1, 320000);
-setInterval(intervalFunc2, 360000);
+function intervalFunc3() {
+  districtdata.writedata();
+  console.log('updating state and total data in database');
+}
 
+
+setInterval(intervalFunc, 306137);
+setInterval(intervalFunc1, 321983);
+setInterval(intervalFunc2, 363184);
+setInterval(intervalFunc3, 475419);
 
 module.exports = app;

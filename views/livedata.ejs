@@ -1,45 +1,100 @@
 <%- include('navbar') -%>
 
 <a onclick="scrollToTop()" class="to-top btn btn-lg btn-light">▲</a>
-<div class="container-fluid totaldata-container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="totaldata">
-        <h2>Country</h2><br>
-        <h2>India</h2>
+<div class="hide stat_dist_data">
+  <div class="updates">
+    <div class="update-title">Live updates of COVID-19 in Your District</div>
+    <div class="cards">
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text red" id="dist_name"></h3><br>
+          <h3 class="data-num red" id="dist_confirmed"></h3>
+        </div>
       </div>
-    </div>
-    <div class=" col-md-4">
-      <div class="totaldata">
-        <h2><%=totalindia_data.confirmed%></h2>
-        <h2>confirmed</h2>
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text green">Active</h3>
+          <h3 class="data-num green" id="dist_active"></h3>
+        </div>
       </div>
-    </div>
-    <div class=" col-md-4">
-      <div class="totaldata">
-        <h2>last updated time</h2>
-        <h2><%=totalindia_data.lastupdatedtime%></h2>
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text black">Recovered</h3>
+          <h3 class="data-num black" id="dist_recovered"></h3>
+        </div>
       </div>
     </div>
   </div>
-
+  <div class="updates">
+    <div class="update-title">Live updates of COVID-19 in Your State</div>
+    <div class="cards">
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text red" id="stat_name"></h3><br>
+          <h3 class="data-num red" id="stat_confirmed"></h3>
+        </div>
+      </div>
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text green">Active</h3>
+          <h3 class="data-num green" id="stat_active"></h3>
+        </div>
+      </div>
+      <div class="card shadow">
+        <div class="data">
+          <h3 class="data-text black">Recovered</h3>
+          <h3 class="data-num black" id="stat_recovered"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="updates">
+  <div class="update-title">Live updates of COVID-19 in India</div>
+  <div class="cards">
+    <div class="card shadow">
+      <div class="data">
+        <h3 class="data-text red">India</h3><br>
+        <h3 class="data-num red"><%=totalindia_data.confirmed%></h3>
+      </div>
+    </div>
+    <div class="card shadow">
+      <div class="data">
+        <h3 class="data-text green">Active</h3>
+        <h3 class="data-num green"><%=totalindia_data.active%></h3>
+      </div>
+    </div>
+    <div class="card shadow">
+      <div class="data">
+        <h3 class="data-text black">Recovered</h3>
+        <h3 class="data-num black"><%=totalindia_data.recovered%></h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <div id="chartContainer" class="container" style="height: 370px; width: 100%;" onload="myfunc()"></div>
 
 
-<div class="container infection-trajectory">
+<div class="container infection-trajectory shadow">
   <iframe src="https://ourworldindata.org/grapher/covid-confirmed-cases-since-100th-case"
     style="width: 100%; height: 600px; border: 0px none;" class="infection-trajectory-iframe"></iframe>
 </div>
 
-<div class="container country-wise">
+<div class="container country-wise shadow">
+  <iframe src="https://ourworldindata.org/grapher/daily-cases-covid-19?tab=map&country=IND"
+    style="width: 100%; height: 600px; border: 0px none;" class="country-wise-iframe"></iframe>
+</div>
+
+<div class="container country-wise shadow">
   <iframe src="https://ourworldindata.org/grapher/daily-cases-covid-19?country=IND"
     style="width: 100%; height: 600px; border: 0px none;" class="country-wise-iframe"></iframe>
 </div>
 
 
-<div class="container section-statewise bg-light">
+<div class="container section-statewise bg-light shadow">
   <table class="table table-striped table-hover table-responsive-md">
     <thead>
       <tr>
@@ -61,13 +116,12 @@
     </tr>
     <%}%>        
       </table>
-    
-</div>
 
 
+<hr>
 
 
-<div class="container section-statewise bg-light">
+<div class="container section-statewise bg-light shadow">
   <table class="table table-striped table-hover table-responsive-md">
     <thead>
       <tr>
@@ -95,5 +149,5 @@
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-
+<script type="text/javascript" src="js/livedata.js"></script>
     <%- include('partials/footer') -%>
