@@ -48,4 +48,20 @@ to run server type "npm start" in your command line interface
 	
 NOTE:  if there is any problem of getting statedata on database then in please make all collection mentioned in the statedataSchema of      			model folder in database for one time.Do not insert any data in it.Later Server will automatically update it.
 
-NOTE:  IF your entered email in config.env do not have less secure app access then on signup app will stop working as google blocks your email 			access
+NOTE:  IF your entered email in config.env do not have less secure app access then on signup app will stop working as google blocks your email 	access
+
+
+//////////////////////////////////////////////////////////////
+IN CONFIGURATION FILE
+NODE_ENV=development
+PORT=4000
+DATABASE= mongodb+srv://aman:<password>@cluster0-hhnva.mongodb.net/test?retryWrites=true&w=majority
+DATABASE_PASWORD= aman
+
+JWT_SECRET=Your secret
+JWT_EXPIRES_IN = 90d
+
+map_key =Map Key
+
+email = Your Email
+password =Email Id password
