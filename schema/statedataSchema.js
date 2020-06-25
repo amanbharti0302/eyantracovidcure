@@ -15,6 +15,9 @@ const statedataSchema = new mongoose.Schema({
     },
     state:{
         type:String
+    },
+    district: {
+    type: Object,
     }
 })
 
